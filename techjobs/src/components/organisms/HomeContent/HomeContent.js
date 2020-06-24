@@ -2,6 +2,9 @@ import React from "react";
 import "./homeContent.css";
 import SearchBar from "../../molecules/searchBar/SearchBar";
 import Card from "../../molecules/Card/Card";
+import FilterBar from "../../molecules/FilterBar/FilterBar";
+import MainTitle from '../../atoms/MainTitle/MainTitle';
+
 
 const HomeContent = ({
   texto,
@@ -11,10 +14,14 @@ const HomeContent = ({
   value,
   onChange,
   data,
+  filters,
+  handleFilters,
+  titulo
 }) => {
-  return (
-    <main>
-      <h1>TechJobs</h1>
+    return (
+    <main className='homeContent--container'>
+      {/* tem que botar a props desse componente como titulo, pq ja existe uma outra props com esse nome sendo usada */}
+     <MainTitle texto={titulo}/> 
       <section>
         <div>
           {/* no JSX, o input é uma tag que se auto fecha */}
@@ -28,13 +35,11 @@ const HomeContent = ({
           />
         </div>
 
-        <div>
-          <h2>FILTROS</h2>
-        </div>
+        <FilterBar filters={filters} onClick={handleFilters}/>
       </section>
 
       <section>
-        {data ? (
+        {data.length ? (
           data.map((item) => {
             const {
               logo,
