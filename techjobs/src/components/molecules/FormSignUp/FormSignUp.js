@@ -3,8 +3,9 @@ import './formSignUp.css';
 import 'antd/dist/antd.css';
 import { Form, Input, Button} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {Link} from  'react-router-dom';
 
-const FormSignUp = ({onFinish}) => {
+const FormSignUp = ({onFinish, login}) => {
     return(
         <Form
         name="normal_login"
@@ -43,6 +44,20 @@ const FormSignUp = ({onFinish}) => {
           />
         </Form.Item>
         <Form.Item
+          name="email"
+          rules={[
+            {
+              required: true,
+              message: "Campo obrigatório. Por favor, insira seu e-mail!",
+            },
+          ]}
+        >
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="E-mail"
+          />
+        </Form.Item>
+        <Form.Item
           name="password"
           rules={[
             {
@@ -58,10 +73,10 @@ const FormSignUp = ({onFinish}) => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" onClick={login}>
             Cadastrar
           </Button>
-          Ou <a href="/">Login</a>
+          Ou <Link to="/login">Login</Link>
         </Form.Item>
       </Form>
     )

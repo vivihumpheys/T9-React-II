@@ -12,7 +12,15 @@ class Home extends Component {
       //esse data é mutável
       data: [],
       //esses filtros já iniciam o estado assim, vai alterar é o array de dados quando clicamos neles
-      filters: ['Todos', 'Front', 'Back', 'Design', 'Junior', 'Pleno', 'Senior'],
+      filters: [
+        "Todos",
+        "Front",
+        "Back",
+        "Design",
+        "Junior",
+        "Pleno",
+        "Senior",
+      ],
     };
   }
 
@@ -25,10 +33,10 @@ class Home extends Component {
     console.log(this.state.data);
   };
 
-   onClick = async () => {
+  onClick = async () => {
     console.log("onclick");
-    const {inputValue} = this.state;
-    const {data} = this.props //imutável, tem que puxar esse da props, e nao o data do estado, que é mutável e iria pesquisar a partir do filter;
+    const { inputValue } = this.state;
+    const { data } = this.props; //imutável, tem que puxar esse da props, e nao o data do estado, que é mutável e iria pesquisar a partir do filter;
 
     if (inputValue && data.length) {
       const result = await data.filter((item) =>
@@ -36,7 +44,7 @@ class Home extends Component {
       );
       this.setState({ inputValue: "" });
       console.log({ result });
-      this.setState({inputValue: '', data: result})
+      this.setState({ inputValue: "", data: result });
     } else {
       console.log("sem input ou sem dados");
     }
@@ -48,30 +56,31 @@ class Home extends Component {
     this.setState({ inputValue: value });
   };
 
-  handleFilters = (e)=>{
-    const {data} = this.props;
+  handleFilters = (e) => {
+    const { data } = this.props;
     const value = e.target.id.toLowerCase();
-    const result = data.filter(item=>{
-      switch(value) {
+    const result = data.filter((item) => {
+      switch (value) {
         case "todos":
           return item;
         default:
           return item.position.toLowerCase().includes(value);
       }
     });
-    this.setState({data: result});
-    console.log (value);
+    this.setState({ data: result });
+    console.log(value);
   };
 
   render() {
     console.log("o render foi chamado");
     //está referenciando que o data e o inputValue sao propriedades que pertencem ao state do Home, pra facilitar a sintaxe no return abaixo, quando chamar essas props
-    const {inputValue, data, filters} = this.state;
+    const { inputValue, data, filters } = this.state;
+    const { logout, loggedUser } = this.props;
     return (
-      <GeneralTemplate>
+      <GeneralTemplate loggedUser={loggedUser} logout={logout}>
         {/* aqui ele esta incluindo os filhos do general template, conteudos das paginas abaixo da nav */}
         <HomeContent
-          titulo='TechJobs'
+          titulo="TechJobs"
           texto="Buscar"
           onClick={this.onClick}
           type="text"
@@ -85,6 +94,6 @@ class Home extends Component {
       </GeneralTemplate>
     );
   }
-}
+};
 
 export default Home;

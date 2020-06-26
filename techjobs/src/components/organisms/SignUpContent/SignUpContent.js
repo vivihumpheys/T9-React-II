@@ -3,11 +3,11 @@ import './signUpContent.css';
 import FormSignUp from '../../molecules/FormSignUp/FormSignUp';
 import MainTitle from '../../atoms/MainTitle/MainTitle';
 
-const SignUpContent = ({titulo, onFinish}) => {
+const SignUpContent = ({texto, onFinish, login}) => {
     return (
         <main className='signUpContent--container'>
-            <MainTitle titulo={titulo} />
-            <FormSignUp onFinish={onFinish}/>
+            <MainTitle texto={texto} className='title' />
+            <FormSignUp onFinish={onFinish} login={login}/>
         </main>
     );
 };
